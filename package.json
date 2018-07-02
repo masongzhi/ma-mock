@@ -1,0 +1,26 @@
+{
+  "name": "mock",
+  "version": "0.1.0",
+  "description": "用于mock和proxy的服务器",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"nodemon -w ./server/app/ ./server/index.js\" \"cd ./client && npm run dev\" ",
+    "start": "concurrently \"node ./server/index.js\" \"cd ./client && npm start\" ",
+    "install": "concurrently \"cd ./server && npm install\" \"cd ./client && npm install\"",
+    "format": "prettier --write '{client,server}/**/*.{js,vue,scss,css}'"
+  },
+  "keywords": [
+    "mock",
+    "proxy",
+    "koa"
+  ],
+  "author": "511071161@qq.com",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:masongzhi/mock-proxy.git"
+  },
+  "devDependencies": {
+    "concurrently": "^3.6.0"
+  }
+}
