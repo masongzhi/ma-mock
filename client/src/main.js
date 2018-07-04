@@ -5,6 +5,7 @@ import App from './App';
 import router from './router';
 import store from './store';
 import filters from '@/utils/filters';
+import './element-ui';
 
 import '@/assets/styles/index.scss';
 

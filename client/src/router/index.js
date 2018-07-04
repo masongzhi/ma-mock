@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-const HelloWorld = () => import(/* webpackChunkName: "helloWorld" */ '@/page/HelloWorld');
+const Mock = () => import(/* webpackChunkName: "Mock" */ '@/page/Mock');
+const Proxy = () => import(/* webpackChunkName: "Proxy" */ '@/page/Proxy');
 
 Vue.use(Router);
 
@@ -11,8 +12,15 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld,
+      redirect: '/mock',
+    },
+    {
+      path: '/mock',
+      component: Mock,
+    },
+    {
+      path: '/proxy',
+      component: Proxy,
     },
   ],
 });

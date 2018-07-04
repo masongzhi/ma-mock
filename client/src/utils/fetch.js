@@ -4,13 +4,13 @@ import URI from 'urijs';
 export default function fetch(url, options) {
   const config = handleConfig(url, options);
 
-  return axios(config);
+  return axios(config).then(handleResponse);
 }
 
 function ensureAbsoluteUrl(input) {
   if (typeof input !== 'string') return input;
   if (URI(input).is('absolute')) return input;
-  return URI(input)
+  return URI('/api/v1' + input)
     .normalize()
     .toString();
 }
@@ -43,4 +43,8 @@ function handleConfig(url, options) {
   }
 
   return finalOptions;
+}
+
+export function handleResponse(response) {
+  return response.data;
 }

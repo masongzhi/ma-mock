@@ -23,6 +23,16 @@ class ProxyController {
 
     ctx.body = result;
   }
+
+  static async changeProxy(ctx) {
+    const schema = {
+      url: Joi.string().allow(['']).required(),
+    };
+    const value = Joi.validate(ctx.param, schema);
+    const result = await ProxyService.changeProxy(value);
+
+    ctx.body = result;
+  }
 }
 
 module.exports = ProxyController;
