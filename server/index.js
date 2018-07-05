@@ -22,7 +22,7 @@ app.use(
 // init global data
 Global.rootPath = path.resolve(__dirname, './data/mock');
 Global.proxyPath = path.resolve(__dirname, './data/proxy/config.json');
-Global.currentProxyUrl = fsHandler.getProxyConfig(Global.proxyPath)[0];
+Global.currentProxyUrl = fsHandler.getProxyConfig(Global.proxyPath)[0].url;
 const dirs = fsHandler.findDirs(Global.rootPath);
 Global.mockList = dirs.map(it => {
   return { url: it, enable: false };

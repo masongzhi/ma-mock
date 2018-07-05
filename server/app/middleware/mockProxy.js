@@ -60,7 +60,7 @@ module.exports = options => {
   async function handlerProxySync(api, ctx) {
     const options = {
       ...ctx.request,
-      url: `${Global.currentProxyUrl.url}/${api}`,
+      url: `${Global.currentProxyUrl}/${api}`,
       params: ctx.query,
     };
 
