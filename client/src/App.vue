@@ -7,6 +7,7 @@
             background-color="#545c64"
             text-color="#fff"
             active-text-color="#ffd04b"
+            default-active="/users"
             style="min-height: 100vh;">
           <div class="menu-title">Mock Proxy</div>
           <el-menu-item v-for="item in menuItems" :key="item.route" :index="item.route">

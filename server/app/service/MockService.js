@@ -8,10 +8,11 @@ class MockService {
     return data;
   }
 
-  async setMockDataSync({ url, data, method, mark }) {
+  async setMockDataSync({ url, data, method, mark, oldURL }) {
     const fileDirPath = path.join(Global.rootPath, url + ".json");
 
     fsHandler.createOrUpdateFileByPath(fileDirPath, { ...data, method, mark });
+    oldURL && this.delMockDataSync({url: oldURL, method});
     this.refreshMockList();
 
     return "success";

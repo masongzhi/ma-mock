@@ -50,6 +50,7 @@ export default {
   computed: {
     ...mapState('Mock', {
       mockItem: state => state.mockItem,
+      oldURL: state => state.oldURL,
     }),
     form: {
       get() {
@@ -61,7 +62,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations('Mock', ['SET_MOCK_ITEM', 'INIT_MOCK_ITEM']),
+    ...mapMutations('Mock', ['SET_MOCK_ITEM', 'INIT_MOCK_DIALOG']),
     async setMockItem() {
       this.$refs['form'].validate(async valid => {
         if (valid) {
@@ -70,6 +71,7 @@ export default {
             body: {
               ...row,
               data: JSON.parse(row.data),
+              oldURL: this.oldURL,
             },
           });
           this.$message.success('增加mock条例成功');
@@ -83,8 +85,8 @@ export default {
       });
     },
     handleClose() {
-      this.INIT_MOCK_ITEM();
       this.$emit('update:visible', false);
+      this.INIT_MOCK_DIALOG();
     },
   },
 };

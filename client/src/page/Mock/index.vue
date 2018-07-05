@@ -18,7 +18,7 @@
         </template>
       </el-table-column>
       <el-table-column
-          prop="mark"
+          prop="data.mark"
           label="备注"
       >
       </el-table-column>
@@ -78,6 +78,7 @@
 import { getAllMockData, enableMockUrl, setMockData, delMockData } from '@/api';
 import CreateMockItem from './createMockItem';
 import { mapMutations } from 'vuex';
+import cloneDeep from 'lodash/cloneDeep';
 
 export default {
   name: 'mock',
@@ -93,10 +94,12 @@ export default {
   },
 
   methods: {
-    ...mapMutations('Mock', ['SET_MOCK_ITEM']),
+    ...mapMutations('Mock', ['SET_MOCK_ITEM', 'SET_OLD_URL']),
     handleEdit(index, row) {
-      row.data = this.formatJSON(row.data);
-      this.SET_MOCK_ITEM(row);
+      const nRow = cloneDeep({ ...row, mark: row.data.mark });
+      nRow.data = this.formatJSON(nRow.data);
+      this.SET_MOCK_ITEM(nRow);
+      this.SET_OLD_URL(row.url);
       this.mockItemVisible = true;
     },
     async handleDelete(index, row) {

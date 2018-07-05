@@ -12,7 +12,8 @@ class MockController {
       url: Joi.string().required(),
       data: Joi.any().required(),
       method: Joi.string(),
-      mark: Joi.string(),
+      mark: Joi.string().required(),
+      oldURL: Joi.string(),
     };
     const value = Joi.validate(ctx.request.body, schema);
     const result = await MockService.setMockDataSync(value);
