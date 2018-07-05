@@ -31,7 +31,7 @@ module.exports = options => {
     }
 
     // 判断是否使用MOCK数据
-    const find = Global.mockList.find(it => it.api === `/${pathArr[1]}`);
+    const find = Global.mockList.find(it => it.url === `/${pathArr[1]}`);
 
     if (find && find.open) {
       ctx.body = handlerMock(pathArr[1]);

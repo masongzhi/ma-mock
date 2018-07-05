@@ -4,6 +4,21 @@ export function getAllMockData(options) {
   return fetch('/mock/allData', options);
 }
 
+export function enableMockUrl(options, url) {
+  options.method = 'put';
+  return fetch(`/mock/${url}/enable`, options);
+}
+
+export function setMockData(options) {
+  options.method = 'post';
+  return fetch('/mock/data', options);
+}
+
+export function delMockData(options) {
+  options.method = 'delete';
+  return fetch('/mock/data', options);
+}
+
 export function getProxyConfig(options) {
   return fetch('/proxy/config', options);
 }

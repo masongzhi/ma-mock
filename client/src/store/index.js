@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import helloWorld from '@/page/HelloWorld/store';
+import HelloWorld from '@/page/HelloWorld/store';
+import Mock from '@/page/Mock/store';
 import { getProxyConfig } from '@/api';
 
 Vue.use(Vuex);
@@ -32,7 +33,8 @@ const store = new Vuex.Store({
   actions,
   mutations,
   modules: {
-    helloWorld,
+    HelloWorld,
+    Mock,
   },
 });
 

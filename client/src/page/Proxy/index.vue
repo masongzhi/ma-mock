@@ -37,11 +37,11 @@
 </template>
 
 <script>
-import { getAllMockData } from '@/api';
-import { mapState, mapActions, mapMutations } from 'vuex';
+// import { getAllMockData } from '@/api';
+import { mapState } from 'vuex';
 
 export default {
-  name: 'index',
+  name: 'proxy',
   computed: {
     ...mapState({
       proxyConfig: state => state.proxyConfig,

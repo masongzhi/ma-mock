@@ -25,7 +25,7 @@ Global.proxyPath = path.resolve(__dirname, './data/proxy/config.json');
 Global.currentProxyUrl = fsHandler.getProxyConfig(Global.proxyPath)[0];
 const dirs = fsHandler.findDirs(Global.rootPath);
 Global.mockList = dirs.map(it => {
-  return { api: it, open: false };
+  return { url: it, enable: false };
 });
 // routers
 const router = require('./app/router');

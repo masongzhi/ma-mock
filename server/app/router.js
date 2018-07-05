@@ -12,6 +12,7 @@ router.get('/mock/allData', MockController.getMockDataSync);
 router.post('/mock/data', MockController.setMockDataSync);
 router.delete('/mock/data', MockController.delMockDataSync);
 router.get('/mock/dirs', MockController.getMockDirsSync);
+router.put('/mock/:url/enable', MockController.enableMockUrl);
 
 router.get('/proxy/config', ProxyController.getProxyConfig);
 router.post('/proxy/config', ProxyController.setProxyConfig);

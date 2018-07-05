@@ -1,5 +1,6 @@
 import axios from 'axios';
 import URI from 'urijs';
+import Vue from 'vue';
 
 export default function fetch(url, options) {
   const config = handleConfig(url, options);
@@ -46,5 +47,14 @@ function handleConfig(url, options) {
 }
 
 export function handleResponse(response) {
-  return response.data;
+  if (response.status === 200 && response.statusText === 'OK') {
+    if (response.data && response.data.code !== 0) {
+      Vue.$message.error(response.data.message);
+    } else {
+      return response.data;
+    }
+  } else {
+    Vue.$message.error('请求失败，请查看浏览器log');
+    console.log('response error===>>>>', response);
+  }
 }
