@@ -99,6 +99,7 @@ export default {
       const nRow = cloneDeep({ ...row, mark: row.data.mark });
       nRow.data = this.formatJSON(nRow.data);
       this.SET_MOCK_ITEM(nRow);
+      // 使用原url
       this.SET_OLD_URL(row.url);
       this.mockItemVisible = true;
     },

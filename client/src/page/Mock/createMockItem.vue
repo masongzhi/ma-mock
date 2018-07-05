@@ -5,7 +5,7 @@
       width="50%"
       :before-close="handleClose"
   >
-    <el-form ref="form" :rules="rules" :model="form" label-width="80px">
+    <el-form ref="form" :rules="rules" :model="form" label-width="100px">
       <el-form-item label="备注" prop="mark">
         <el-input v-model="form.mark"></el-input>
       </el-form-item>

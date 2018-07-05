@@ -1,4 +1,4 @@
-const { Joi } = require('../lib/index');
+const { Joi, Global } = require('../lib/index');
 const MockService = require('../service/MockService');
 
 class MockController {
@@ -7,45 +7,60 @@ class MockController {
 
     ctx.body = result;
   }
-  static async setMockDataSync(ctx) {
+  static setMockData(ctx) {
     const schema = {
       url: Joi.string().required(),
       data: Joi.any().required(),
       method: Joi.string(),
       mark: Joi.string().required(),
-      oldURL: Joi.string(),
+      oldURL: Joi.string().allow([null]),
     };
     const value = Joi.validate(ctx.request.body, schema);
-    const result = await MockService.setMockDataSync(value);
+    const result = MockService.setMockData(value);
 
     ctx.body = result;
   }
-  static async delMockDataSync(ctx) {
+  static delMockData(ctx) {
     const schema = {
       url: Joi.string().required(),
       method: Joi.string(),
     };
     const value = Joi.validate(ctx.param, schema);
-    const result = await MockService.delMockDataSync(value);
+    const result = MockService.delMockData(value);
 
     ctx.body = result;
   }
-  static async getMockDirsSync(ctx) {
-    const result = await MockService.getMockDirsSync();
+  static getMockDirs(ctx) {
+    const result = MockService.getMockDirs();
 
     ctx.body = result;
   }
 
-  static enableMockUrl(ctx) {
+  static changeEnableMockUrl(ctx) {
     const schema = {
       url: Joi.string().required(),
       enable: Joi.boolean().required(),
     };
     const value = Joi.validate({...ctx.param, ...ctx.params}, schema);
 
-    const result = MockService.enableMockUrl(value);
+    const result = MockService.changeEnableMockUrl(value);
 
     ctx.body = result;
+  }
+
+  static changeEnableMock(ctx) {
+    const schema = {
+      enable: Joi.boolean().required(),
+    };
+    const value = Joi.validate(ctx.param, schema);
+
+    const result = MockService.changeEnableMock(value);
+
+    ctx.body = result;
+  }
+
+  static getEnableMock(ctx) {
+    ctx.body = {enableMock: Global.enableMock};
   }
 }
 

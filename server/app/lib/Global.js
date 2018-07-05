@@ -1,7 +1,8 @@
 // 全局变量
 module.exports = {
   currentProxyUrl: null,
-  openProxy: true,
+  enableProxy: true,
+  enableMock: true,
   rootPath: null,
   proxyPath: null,
   mockList: [],

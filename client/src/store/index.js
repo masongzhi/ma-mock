@@ -9,6 +9,7 @@ Vue.use(Vuex);
 const state = {
   proxyConfig: [],
   currentProxyUrl: null,
+  enableMock: false,
 };
 
 const actions = {
@@ -22,9 +23,13 @@ const mutations = {
   SET_PROXY_CONFIG(state, data) {
     state.proxyConfig = data.data.config;
     state.currentProxyUrl = data.data.currentProxyUrl;
+    state.enableProxy = data.data.enableProxy;
   },
   SET_CURRENT_PROXY_URL(state, val) {
     state.currentProxyUrl = val;
+  },
+  SET_ENABLE_MOCK(state, val) {
+    state.enableMock = val;
   },
 };
 

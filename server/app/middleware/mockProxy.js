@@ -33,9 +33,9 @@ module.exports = options => {
     // 判断是否使用MOCK数据
     const find = Global.mockList.find(it => it.url === `/${pathArr[1]}`);
 
-    if (find && find.open) {
+    if (find && find.enable) {
       ctx.body = handlerMock(pathArr[1]);
-    } else if (Global.openProxy) {
+    } else if (Global.enableProxy) {
       ctx.body = await handlerProxySync(`/${pathArr[1]}`, ctx);
     } else {
       ctx.body = '未开启proxy';

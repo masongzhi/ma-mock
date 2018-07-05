@@ -8,33 +8,30 @@ class MockService {
     return data;
   }
 
-  async setMockDataSync({ url, data, method, mark, oldURL }) {
+  setMockData({ url, data, method, mark, oldURL }) {
     const fileDirPath = path.join(Global.rootPath, url + ".json");
 
     fsHandler.createOrUpdateFileByPath(fileDirPath, { ...data, method, mark });
-    oldURL && this.delMockDataSync({url: oldURL, method});
+    if (oldURL && oldURL !== url){
+      this.delMockData({ url: oldURL, method });
+    }
     this.refreshMockList();
-
-    return "success";
   }
 
-  async delMockDataSync({ url, method }) {
+  delMockData({ url, method }) {
     const fileDirPath = path.join(Global.rootPath, url + ".json");
     fsHandler.deleteFileByPath(fileDirPath);
     this.refreshMockList();
-
-    return "success";
   }
 
-  async getMockDirsSync() {
+  getMockDirs() {
     const rootPath = Global.rootPath;
     return fsHandler.findDirs(rootPath);
   }
 
-  enableMockUrl(param) {
+  changeEnableMockUrl(param) {
     let find = Global.mockList.find(it => it.url === param.url);
     find.enable = param.enable;
-    return "success";
   }
 
   refreshMockList() {
@@ -45,6 +42,10 @@ class MockService {
       const enable = !!enableList.find(item => item.url === it);
       return { url: it, enable };
     });
+  }
+
+  changeEnableMock({ enable }) {
+    Global.enableMock = enable;
   }
 }
 

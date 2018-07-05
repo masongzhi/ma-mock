@@ -27,3 +27,12 @@ export function changeProxy(options) {
   options.method = 'post';
   return fetch('/proxy/change', options);
 }
+
+export function changeEnableMock(options) {
+  options.method = 'put';
+  return fetch('/mock/enable', options);
+}
+
+export function getEnableMock(options) {
+  return fetch('/mock/enable', options);
+}

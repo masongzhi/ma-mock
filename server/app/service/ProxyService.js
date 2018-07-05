@@ -16,7 +16,6 @@ class ProxyService {
 
   async changeProxy({ url }) {
     Global.currentProxyUrl = url;
-    return "success";
   }
 }
 

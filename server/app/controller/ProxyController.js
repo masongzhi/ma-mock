@@ -1,5 +1,5 @@
-const { Joi } = require('../lib/index');
-const ProxyService = require('../service/ProxyService');
+const { Joi } = require("../lib/index");
+const ProxyService = require("../service/ProxyService");
 
 class ProxyController {
   static async getProxyConfig(ctx) {
@@ -13,10 +13,10 @@ class ProxyController {
         .items(
           Joi.object().keys({
             name: Joi.string().required(),
-            url: Joi.string().required(),
+            url: Joi.string().required()
           })
         )
-        .required(),
+        .required()
     };
     const value = Joi.validate(ctx.request.body, schema);
     const result = await ProxyService.setProxyConfig(value);
@@ -26,7 +26,9 @@ class ProxyController {
 
   static async changeProxy(ctx) {
     const schema = {
-      url: Joi.string().allow(['']).required(),
+      url: Joi.string()
+        .allow([""])
+        .required()
     };
     const value = Joi.validate(ctx.param, schema);
     const result = await ProxyService.changeProxy(value);

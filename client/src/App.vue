@@ -18,15 +18,21 @@
 
       <el-container>
         <el-header class="header">
-          proxy地址：
-          <el-select v-model="proxyUrl" clearable placeholder="proxy地址" @change="changeCurrentProxy">
-            <el-option
-                v-for="item in proxyConfig"
-                :key="item.url"
-                :label="item.name"
-                :value="item.url">
-            </el-option>
-          </el-select>
+          <div>
+            proxy地址：
+            <el-select v-model="proxyUrl" clearable placeholder="proxy地址" @change="changeCurrentProxy">
+              <el-option
+                  v-for="item in proxyConfig"
+                  :key="item.url"
+                  :label="item.name"
+                  :value="item.url">
+              </el-option>
+            </el-select>
+          </div>
+          <div class="ml10">
+            启用mock：
+            <el-switch v-model="enableMock" @change="changeEnableMock"></el-switch>
+          </div>
         </el-header>
         <el-main class="main">
           <router-view></router-view>
@@ -38,7 +44,7 @@
 
 <script>
 import { mapState, mapActions, mapMutations } from 'vuex';
-import { changeProxy } from '@/api';
+import { changeProxy, getEnableMock, changeEnableMock } from '@/api';
 
 export default {
   name: 'App',
@@ -55,6 +61,7 @@ export default {
     ...mapState({
       proxyConfig: state => state.proxyConfig,
       currentProxyUrl: state => state.currentProxyUrl,
+      s_enableMock: state => state.enableMock,
     }),
     proxyUrl: {
       get() {
@@ -64,22 +71,43 @@ export default {
         this.SET_CURRENT_PROXY_URL(val);
       },
     },
+    enableMock: {
+      get() {
+        return this.s_enableMock;
+      },
+      set(val) {
+        this.SET_ENABLE_MOCK(val);
+      },
+    },
   },
   methods: {
     ...mapActions(['getProxyConfig']),
-    ...mapMutations(['SET_CURRENT_PROXY_URL']),
+    ...mapMutations(['SET_CURRENT_PROXY_URL', 'SET_ENABLE_MOCK']),
     async changeCurrentProxy(url) {
       await changeProxy({
         body: { url },
       });
     },
+    async getEnableMock() {
+      const data = await getEnableMock();
+      this.SET_ENABLE_MOCK(data.data.enableMock);
+    },
+    async changeEnableMock(val) {
+      await changeEnableMock({
+        body: {
+          enable: val,
+        },
+      });
+      this.$message.success('修改成功');
+    },
   },
   created() {
+    this.getEnableMock();
     this.getProxyConfig();
   },
 };
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .menu-title {
   font-size: 18px;
   text-align: center;
