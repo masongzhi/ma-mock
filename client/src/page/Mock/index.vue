@@ -12,8 +12,11 @@
           width="55">
         <template slot-scope="scope">
           <el-tooltip effect="dark" content="勾选后启用这条规则" placement="left">
-            <el-checkbox @change="(val) => handleSelectionChange(val, scope.row)"
-                         v-model="scope.row.enable"></el-checkbox>
+            <el-checkbox
+                :disabled="!enableMock"
+                @change="(val) => handleSelectionChange(val, scope.row)"
+                v-model="scope.row.enable">
+            </el-checkbox>
           </el-tooltip>
         </template>
       </el-table-column>
@@ -77,7 +80,7 @@
 <script>
 import { getAllMockData, enableMockUrl, setMockData, delMockData } from '@/api';
 import CreateMockItem from './createMockItem';
-import { mapMutations } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 import cloneDeep from 'lodash/cloneDeep';
 
 export default {
@@ -92,7 +95,11 @@ export default {
       mockItemVisible: false,
     };
   },
-
+  computed: {
+    ...mapState({
+      enableMock: state => state.enableMock,
+    }),
+  },
   methods: {
     ...mapMutations('Mock', ['SET_MOCK_ITEM', 'SET_OLD_URL']),
     handleEdit(index, row) {
@@ -104,9 +111,7 @@ export default {
       this.mockItemVisible = true;
     },
     async handleDelete(index, row) {
-      this.$confirm('此操作将永久删除该mock文件, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
+      this.$confirm('此操作将删除该mock文件, 是否继续?', {
         type: 'warning',
       })
         .then(async () => {

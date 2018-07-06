@@ -165,12 +165,12 @@ function deleteFileByPath(dirPath) {
 
 function getProxyConfig() {
   let fileData = fs.readFileSync(Global.proxyPath, "utf8");
-  fileData = JSON.parse(stripJsonComments(fileData));
+  fileData = fileData ? JSON.parse(stripJsonComments(fileData)) : [];
   return fileData;
 }
 
 function setProxyConfig(data) {
-  fs.writeFileSync(Global.proxyPath, data, "utf8");
+  fs.writeFileSync(Global.proxyPath, JSON.stringify(data, null, 2), "utf8");
 }
 
 module.exports = {

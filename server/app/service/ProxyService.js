@@ -9,9 +9,9 @@ class ProxyService {
     };
   }
 
-  async setProxyConfig(param) {
-    const data = await fsHandler.setProxyConfig(param);
-    return data;
+  async setProxyConfig({data}) {
+    const result = await fsHandler.setProxyConfig(data);
+    return result;
   }
 
   async changeProxy({ url }) {

@@ -36,3 +36,8 @@ export function changeEnableMock(options) {
 export function getEnableMock(options) {
   return fetch('/mock/enable', options);
 }
+
+export function setProxyConfig(options) {
+  options.method = 'post';
+  return fetch('/proxy/config', options);
+}

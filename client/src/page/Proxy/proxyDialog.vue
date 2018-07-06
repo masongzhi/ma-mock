@@ -15,18 +15,20 @@
     </el-form>
     <div slot="footer">
       <el-button @click="handleClose">返 回</el-button>
-      <el-button type="primary" @click="setMockItem">确 定</el-button>
+      <el-button type="primary" @click="setDialogForm">确 定</el-button>
     </div>
   </el-dialog>
 </template>
 
 <script>
 import { mapState, mapMutations } from 'vuex';
+import { setProxyConfig } from '@/api';
 
 export default {
   name: 'proxyDialog',
   props: {
     visible: Boolean,
+    type: String,
   },
   data() {
     return {
@@ -38,32 +40,28 @@ export default {
   },
   computed: {
     ...mapState('Proxy', {
-      mockItem: state => state.mockItem,
-      oldURL: state => state.oldURL,
+      dialogForm: state => state.dialogForm,
     }),
     form: {
       get() {
-        return this.mockItem;
+        return this.dialogForm;
       },
       set(n) {
-        this.SET_MOCK_ITEM(n);
+        this.SET_DIALOG_FORM(n);
       },
     },
   },
   methods: {
-    ...mapMutations('Mock', ['SET_MOCK_ITEM', 'INIT_MOCK_DIALOG']),
-    async setMockItem() {
+    ...mapMutations('Proxy', ['SET_DIALOG_FORM', 'INIT_DIALOG']),
+    async setDialogForm() {
       this.$refs['form'].validate(async valid => {
         if (valid) {
-          // const row = this.form;
-          // await setMockData({
-          //   body: {
-          //     ...row,
-          //     data: JSON.parse(row.data),
-          //     oldURL: this.oldURL,
-          //   },
-          // });
-          this.$message.success('增加mock条例成功');
+          await setProxyConfig({
+            body: {
+              data: this.$parent.getRequestData(),
+            },
+          });
+          this.$message.success(`${this.type} proxy条例成功`);
 
           this.handleClose();
           this.$emit('refresh');
@@ -75,7 +73,7 @@ export default {
     },
     handleClose() {
       this.$emit('update:visible', false);
-      this.INIT_MOCK_DIALOG();
+      this.INIT_DIALOG();
     },
   },
 };

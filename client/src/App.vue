@@ -7,7 +7,7 @@
             background-color="#545c64"
             text-color="#fff"
             active-text-color="#ffd04b"
-            default-active="/users"
+            :default-active="$route.path"
             style="min-height: 100vh;">
           <div class="menu-title">Mock Proxy</div>
           <el-menu-item v-for="item in menuItems" :key="item.route" :index="item.route">
@@ -51,7 +51,7 @@ export default {
   data() {
     return {
       menuItems: [
-        { route: '/users', label: '使用说明' },
+        { route: '/readme', label: '使用说明' },
         { route: '/proxy', label: 'PROXY 配置' },
         { route: '/mock', label: '自定义 MOCK 数据' },
       ],

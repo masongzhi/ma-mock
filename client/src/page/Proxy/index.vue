@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row class="mb10" type="flex" justify="end">
-      <el-button size="mini" @click="dialogVisible = true">增加proxy</el-button>
+      <el-button size="mini" @click="createProxyItem">增加proxy</el-button>
     </el-row>
     <el-table
         :data="proxyConfig"
@@ -38,14 +38,18 @@
     </el-table>
     <ProxyDialog
         :visible.sync="dialogVisible"
+        :type="dialogType"
+        @refresh="refresh"
     />
   </div>
 </template>
 
 <script>
-// import { getAllMockData } from '@/api';
-import { mapState } from 'vuex';
+import { mapState, mapActions, mapMutations } from 'vuex';
 import ProxyDialog from './proxyDialog';
+import cloneDeep from 'lodash/cloneDeep';
+import without from 'lodash/without';
+import { setProxyConfig } from '@/api';
 
 export default {
   name: 'proxy',
@@ -53,6 +57,8 @@ export default {
   data() {
     return {
       dialogVisible: false,
+      dialogType: '',
+      currentRow: {},
     };
   },
   computed: {
@@ -60,10 +66,57 @@ export default {
       proxyConfig: state => state.proxyConfig,
       currentProxyUrl: state => state.currentProxyUrl,
     }),
+    ...mapState('Proxy', {
+      dialogForm: state => state.dialogForm,
+    }),
   },
   methods: {
-    handleEdit() {},
-    handleDelete() {},
+    ...mapActions(['getProxyConfig']),
+    ...mapMutations('Proxy', ['SET_DIALOG_FORM']),
+    handleEdit(index, row) {
+      this.currentRow = row;
+      this.SET_DIALOG_FORM(cloneDeep(row));
+      this.dialogType = 'edit';
+      this.dialogVisible = true;
+    },
+    async handleDelete(index, row) {
+      this.$confirm('此操作将删除该proxy数据, 是否继续?', {
+        type: 'warning',
+      })
+        .then(async () => {
+          this.dialogType = 'delete';
+          this.currentRow = row;
+          await setProxyConfig({
+            body: {
+              data: this.getRequestData(),
+            },
+          });
+          this.$message.success(`${this.dialogType} proxy条例成功`);
+          await this.refresh();
+        })
+        .catch(() => {});
+    },
+    async refresh() {
+      await this.getProxyConfig();
+    },
+    createProxyItem() {
+      this.dialogType = 'create';
+      this.dialogVisible = true;
+    },
+    getRequestData() {
+      let data = [];
+      switch (this.dialogType) {
+        case 'create':
+          data = [...this.proxyConfig, this.dialogForm];
+          break;
+        case 'edit':
+          data = without([...this.proxyConfig, this.dialogForm], this.currentRow);
+          break;
+        case 'delete':
+          data = without(this.proxyConfig, this.currentRow);
+      }
+      return data;
+    },
   },
 };
 </script>
