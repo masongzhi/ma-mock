@@ -1,5 +1,8 @@
 <template>
   <div>
+    <el-row class="mb10" type="flex" justify="end">
+      <el-button size="mini" @click="dialogVisible = true">增加proxy</el-button>
+    </el-row>
     <el-table
         :data="proxyConfig"
         style="width: 100%">
@@ -33,15 +36,25 @@
         </template>
       </el-table-column>
     </el-table>
+    <ProxyDialog
+        :visible.sync="dialogVisible"
+    />
   </div>
 </template>
 
 <script>
 // import { getAllMockData } from '@/api';
 import { mapState } from 'vuex';
+import ProxyDialog from './proxyDialog';
 
 export default {
   name: 'proxy',
+  components: { ProxyDialog },
+  data() {
+    return {
+      dialogVisible: false,
+    };
+  },
   computed: {
     ...mapState({
       proxyConfig: state => state.proxyConfig,

@@ -87,6 +87,11 @@ export default {
       await changeProxy({
         body: { url },
       });
+      this.$notify({
+        title: 'proxy地址',
+        message: '修改成功',
+        type: 'success',
+      });
     },
     async getEnableMock() {
       const data = await getEnableMock();
@@ -98,7 +103,11 @@ export default {
           enable: val,
         },
       });
-      this.$message.success('修改成功');
+      this.$notify({
+        title: '启用mock',
+        message: '修改成功',
+        type: 'success',
+      });
     },
   },
   created() {

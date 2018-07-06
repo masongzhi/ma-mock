@@ -1,24 +1,16 @@
 <template>
   <el-dialog
-      title="增加mock条例"
+      title="增加proxy条例"
       :visible.sync="visible"
       width="50%"
       :before-close="handleClose"
   >
     <el-form ref="form" :rules="rules" :model="form" label-width="100px">
-      <el-form-item label="备注" prop="mark">
-        <el-input v-model="form.mark"></el-input>
-      </el-form-item>
-      <el-form-item label="mock地址" prop="url">
+      <el-form-item label="proxy地址" prop="url">
         <el-input v-model="form.url"></el-input>
       </el-form-item>
-      <el-form-item label="mock数据" prop="data">
-        <el-input
-            type="textarea"
-            :autosize="{minRows: 4}"
-            placeholder="请输入内容"
-            v-model="form.data">
-        </el-input>
+      <el-form-item label="备注" prop="name">
+        <el-input v-model="form.name"></el-input>
       </el-form-item>
     </el-form>
     <div slot="footer">
@@ -29,25 +21,23 @@
 </template>
 
 <script>
-import { setMockData } from '@/api';
 import { mapState, mapMutations } from 'vuex';
 
 export default {
-  name: 'createMockItem',
+  name: 'proxyDialog',
   props: {
     visible: Boolean,
   },
   data() {
     return {
       rules: {
-        mark: [{ type: 'string', required: true, message: '请输入备注', trigger: 'blur' }],
-        url: [{ type: 'string', required: true, message: '请输入mock地址', trigger: 'blur' }],
-        data: [{ type: 'string', required: true, message: '请输入mock数据', trigger: 'blur' }],
+        name: [{ type: 'string', required: true, message: '请输入备注', trigger: 'blur' }],
+        url: [{ type: 'string', required: true, message: '请输入proxy地址', trigger: 'blur' }],
       },
     };
   },
   computed: {
-    ...mapState('Mock', {
+    ...mapState('Proxy', {
       mockItem: state => state.mockItem,
       oldURL: state => state.oldURL,
     }),
@@ -65,14 +55,14 @@ export default {
     async setMockItem() {
       this.$refs['form'].validate(async valid => {
         if (valid) {
-          const row = this.form;
-          await setMockData({
-            body: {
-              ...row,
-              data: JSON.parse(row.data),
-              oldURL: this.oldURL,
-            },
-          });
+          // const row = this.form;
+          // await setMockData({
+          //   body: {
+          //     ...row,
+          //     data: JSON.parse(row.data),
+          //     oldURL: this.oldURL,
+          //   },
+          // });
           this.$message.success('增加mock条例成功');
 
           this.handleClose();
