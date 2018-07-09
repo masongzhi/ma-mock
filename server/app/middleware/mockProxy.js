@@ -18,8 +18,6 @@ module.exports = options => {
 
   return async function(ctx, next) {
     let curPath = ctx.path;
-    Logger.debug('curPath', curPath);
-
     if (curPath.indexOf(prefix) !== 0) return await next();
 
     let pathArr = curPath.split(prefix);
