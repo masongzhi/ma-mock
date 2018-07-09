@@ -3,6 +3,7 @@
 const path = require('path');
 const Koa = require('koa');
 const mockProxy = require('./app/middleware/mockProxy');
+const staticSpa = require('./app/middleware/staticSpa');
 const { Logger, Global, fsHandler } = require('./app/lib/index');
 const bodyParser = require('koa-bodyparser');
 const _ = require('lodash');
@@ -31,6 +32,11 @@ Global.mockList = dirs.map(it => {
 // routers
 const router = require('./app/router');
 app.use(router.routes(), router.allowedMethods());
+
+app.use(staticSpa({
+  matchReg: /[^/api]|\//,
+  root: path.join(__dirname, './dist'),
+}));
 
 Logger.info(` app star in ${(Date.now() - time) / 1000} s, listen on port ${PORT}`);
 
