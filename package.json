@@ -8,6 +8,7 @@
     "start": "concurrently \"node ./server/index.js\" \"cd ./client && npm start\" ",
     "install": "concurrently \"cd ./server && npm install\" \"cd ./client && npm install\"",
     "format": "prettier --write '{client/src,server/app}/**/*.{js,vue,scss,css}'",
+    "build": "cd ./client && npm run build",
     "precommit": "concurrently \"npm run format\" \"cd ./client && npm run lint\""
   },
   "keywords": [
