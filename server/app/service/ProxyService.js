@@ -1,4 +1,4 @@
-const { Logger, fsHandler, Global } = require("../lib/index");
+const { Logger, fsHandler, Global } = require('../lib/index');
 
 class ProxyService {
   async getProxyConfig() {
@@ -9,7 +9,7 @@ class ProxyService {
     };
   }
 
-  async setProxyConfig({data}) {
+  async setProxyConfig({ data }) {
     const result = await fsHandler.setProxyConfig(data);
     return result;
   }

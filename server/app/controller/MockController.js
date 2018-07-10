@@ -41,7 +41,7 @@ class MockController {
       url: Joi.string().required(),
       enable: Joi.boolean().required(),
     };
-    const value = Joi.validate({...ctx.param, ...ctx.params}, schema);
+    const value = Joi.validate({ ...ctx.param, ...ctx.params }, schema);
 
     const result = MockService.changeEnableMockUrl(value);
 
@@ -60,7 +60,7 @@ class MockController {
   }
 
   static getEnableMock(ctx) {
-    ctx.body = {enableMock: Global.enableMock};
+    ctx.body = { enableMock: Global.enableMock };
   }
 }
 

@@ -33,10 +33,12 @@ Global.mockList = dirs.map(it => {
 const router = require('./app/router');
 app.use(router.routes(), router.allowedMethods());
 
-app.use(spaStatic({
-  matchReg: /[^/api]|\//,
-  root: path.join(__dirname, './dist'),
-}));
+app.use(
+  spaStatic({
+    matchReg: /[^/api]|\//,
+    root: path.join(__dirname, './dist'),
+  })
+);
 
 Logger.info(` app star in ${(Date.now() - time) / 1000} s, listen on port ${PORT}`);
 

@@ -1,5 +1,5 @@
-const { Logger, fsHandler, Global } = require("../lib/index");
-const path = require("path");
+const { Logger, fsHandler, Global } = require('../lib/index');
+const path = require('path');
 
 class MockService {
   async getMockDataSync() {
@@ -9,17 +9,17 @@ class MockService {
   }
 
   setMockData({ url, data, method, mark, oldURL }) {
-    const fileDirPath = path.join(Global.rootPath, url + ".json");
+    const fileDirPath = path.join(Global.rootPath, url + '.json');
 
     fsHandler.createOrUpdateFileByPath(fileDirPath, { ...data, method, mark });
-    if (oldURL && oldURL !== url){
+    if (oldURL && oldURL !== url) {
       this.delMockData({ url: oldURL, method });
     }
     this.refreshMockList();
   }
 
   delMockData({ url, method }) {
-    const fileDirPath = path.join(Global.rootPath, url + ".json");
+    const fileDirPath = path.join(Global.rootPath, url + '.json');
     fsHandler.deleteFileByPath(fileDirPath);
     this.refreshMockList();
   }

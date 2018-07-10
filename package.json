@@ -7,7 +7,8 @@
     "dev": "concurrently \"nodemon -w ./server/app/ ./server/index.js\" \"cd ./client && npm run dev\" ",
     "start": "concurrently \"node ./server/index.js\" \"cd ./client && npm start\" ",
     "install": "concurrently \"cd ./server && npm install\" \"cd ./client && npm install\"",
-    "format": "prettier --write '{client,server}/**/*.{js,vue,scss,css}'"
+    "format": "prettier --write '{client/src,server/app}/**/*.{js,vue,scss,css}'",
+    "precommit": "concurrently \"npm run format\" \"cd ./client && npm run lint\""
   },
   "keywords": [
     "mock",
@@ -21,6 +22,8 @@
     "url": "git@github.com:masongzhi/mock-proxy.git"
   },
   "devDependencies": {
-    "concurrently": "^3.6.0"
+    "concurrently": "^3.6.0",
+    "husky": "^0.14.3",
+    "prettier": "^1.13.7"
   }
 }
