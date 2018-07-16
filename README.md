@@ -78,3 +78,6 @@ client端完成
 
 ## v1.0.1
 增加example
+
+## v1.0.2
+更新example配置

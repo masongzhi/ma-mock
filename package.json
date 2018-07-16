@@ -1,6 +1,6 @@
 {
   "name": "ma-mock",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "用于mock和proxy的服务器",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -14,7 +14,8 @@
   "keywords": [
     "mock",
     "proxy",
-    "koa"
+    "koa-mock-server",
+    "ma-mock"
   ],
   "author": "511071161@qq.com",
   "license": "MIT",

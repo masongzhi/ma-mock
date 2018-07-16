@@ -23,9 +23,10 @@ function _init() {
   const mamockrc = {
     ...defaultrc,
     ...rcfile('mamockrc'),
+    ...process.env,
   };
 
-  PORT = process.argv.PORT || mamockrc.port;
+  PORT = mamockrc.port;
 
   // init global data
   Global.rootPath = path.resolve(__dirname, mamockrc.rootPath);
