@@ -32,6 +32,7 @@
     "koa-router": "^7.4.0",
     "koa-spa-static": "^1.0.0",
     "lodash": "^4.17.10",
+    "rc-config-loader": "^2.0.1",
     "strip-json-comments": "^2.0.1",
     "tracer": "^0.9.0"
   },
@@ -41,7 +42,7 @@
     "prettier": "^1.13.7"
   },
   "bin": {
-    "mock-proxy": "./bin/mock-proxy.js",
-    "mockproxy": "./bin/mock-proxy.js"
+    "ma-mock": "./bin/mock-proxy.js",
+    "mamock": "./bin/mock-proxy.js"
   }
 }

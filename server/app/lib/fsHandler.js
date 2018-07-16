@@ -164,6 +164,9 @@ function deleteFileByPath(dirPath) {
 }
 
 function getProxyConfig() {
+  if (!fs.existsSync(Global.proxyPath)) {
+    createOrUpdateFileByPath(Global.proxyPath, []);
+  }
   let fileData = fs.readFileSync(Global.proxyPath, 'utf8');
   fileData = fileData ? JSON.parse(stripJsonComments(fileData)) : [];
   return fileData;
