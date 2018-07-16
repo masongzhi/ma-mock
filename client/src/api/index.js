@@ -41,3 +41,7 @@ export function setProxyConfig(options) {
   options.method = 'post';
   return fetch('/proxy/config', options);
 }
+
+export function getReadme(options) {
+  return fetch('/readme', options);
+}

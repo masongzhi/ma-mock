@@ -2,6 +2,8 @@ const responseFormatter = require('./middleware/responseFormatter');
 const queryAndBodyToParam = require('./middleware/queryAndBodyToParam');
 const MockController = require('./controller/MockController');
 const ProxyController = require('./controller/ProxyController');
+const fs = require('fs');
+const path = require('path');
 
 const router = require('koa-router')({
   prefix: '/api/v1',
@@ -19,5 +21,9 @@ router.get('/mock/enable', MockController.getEnableMock);
 router.get('/proxy/config', ProxyController.getProxyConfig);
 router.post('/proxy/config', ProxyController.setProxyConfig);
 router.post('/proxy/change', ProxyController.changeProxy);
+
+router.get('/readme', ctx => {
+  ctx.body = fs.readFileSync(path.resolve(__dirname, '../../README.md'), 'utf8');
+});
 
 module.exports = router;

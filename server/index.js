@@ -9,9 +9,10 @@ const _ = require('lodash');
 const spaStatic = require('koa-spa-static');
 const rcfile = require("rc-config-loader");
 const defaultrc = require('./.mamockrc.default');
+const opn = require('opn');
 
 const time = Date.now();
-const PORT = 3001;
+let PORT;
 
 const app = new Koa();
 
@@ -23,6 +24,8 @@ function _init() {
     ...defaultrc,
     ...rcfile('mamockrc'),
   };
+
+  PORT = process.argv.PORT || mamockrc.port;
 
   // init global data
   Global.rootPath = path.resolve(__dirname, mamockrc.rootPath);
@@ -59,3 +62,5 @@ _init();
 Logger.info(` app star in ${(Date.now() - time) / 1000} s, listen on port ${PORT}`);
 
 app.listen(PORT);
+
+opn(`http://localhost:${PORT}`, {app: 'google chrome'});
