@@ -87,5 +87,7 @@ client端完成
 
 ## v1.1.0
 新增：mock配置添加`path-to-regex`判断，可创建`/:xx/xxx`mock接口
+
 修复：`_init()`函数执行顺序
+
 修复：spaStatic插件的matchReg参数配置，该问题导致其他url会匹配静态资源
