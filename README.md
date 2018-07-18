@@ -1,4 +1,7 @@
-# mock-proxy
+# ma-mock
+
+[![npm](https://img.shields.io/npm/dt/ma-mock.svg)](https://www.npmjs.com/package/ma-mock)
+
 用于mock和proxy的服务器，可以某些api使用proxy某些api使用mock数据
 
 ## Installation
