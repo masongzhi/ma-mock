@@ -2,6 +2,7 @@
 
 const { Logger, fsHandler, Global } = require('../lib/index');
 const axios = require('axios');
+const pathToRegexp = require('path-to-regexp');
 /**
  *
  * @param  {object} options 配置项
@@ -29,10 +30,13 @@ module.exports = options => {
     }
 
     // 判断是否使用MOCK数据
-    const find = Global.mockList.find(it => it.url === `/${pathArr[1]}`);
+    const find = Global.mockList.find(it => {
+      const re = pathToRegexp(it.url);
+      return re.test(`/${pathArr[1]}`);
+    });
 
     if (find && find.enable) {
-      ctx.body = handlerMock(pathArr[1]);
+      ctx.body = handlerMock(find.url.slice(1));
     } else if (Global.enableProxy) {
       ctx.body = await handlerProxySync(`/${pathArr[1]}`, ctx);
     } else {

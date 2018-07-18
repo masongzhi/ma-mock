@@ -34,7 +34,7 @@ function _init() {
   Global.currentProxyUrl = _.get(fsHandler.getProxyConfig(Global.proxyPath), '[0].url');
   const dirs = fsHandler.findDirs(Global.rootPath);
   Global.mockList = dirs.map(it => {
-    return { url: it, enable: false };
+    return { url: it, enable: true };
   });
 
   // 配置mock
@@ -45,20 +45,20 @@ function _init() {
   );
 }
 
-// routers
-const router = require('./app/router');
-app.use(router.routes(), router.allowedMethods());
+_init();
 
 // 挂在静态资源
 app.use(
   spaStatic({
-    matchReg: /[^/api]|\//,
+    matchReg: /^(?!\/api)/,
     root: path.join(__dirname, './dist'),
     staticReg: /^\/static/,
   })
 );
 
-_init();
+// routers
+const router = require('./app/router');
+app.use(router.routes(), router.allowedMethods());
 
 Logger.info(` app star in ${(Date.now() - time) / 1000} s, listen on port ${PORT}`);
 
