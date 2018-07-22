@@ -22,7 +22,7 @@ function _init() {
   // 读取.mamockrc配置文件
   const mamockrc = {
     ...defaultrc,
-    ...rcfile('mamockrc'),
+    ...rcfile('mamock'),
     ...process.env,
   };
 
